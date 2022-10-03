@@ -24,17 +24,19 @@ public class ViewJPanel extends javax.swing.JPanel {
      * Creates new form ViewJPanel
      */
     EmployeeHistory history;
-    
+    ArrayList<Employee> searchData;
     private String selectedValue;
     String filename = null;
-
+    private boolean isSearch = false;
     
     public ViewJPanel(EmployeeHistory history) {
         initComponents();
         this.history = history;
-       
+//        searchData = history.getHistory();
+        this.isSearch = false;
         //set test data
 //        setTestData();
+
          showTable(history.getHistory());
 //        cbbSearch.addItem("Name");
 //            populateTable();
@@ -454,7 +456,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         }
         DefaultTableModel model = (DefaultTableModel) tblEmployees.getModel();
         
-        Employee selectedEmployee = (Employee) model.getValueAt(selectedRowIndex, 0);
+        Employee selectedEmployee = history.getHistory().get(selectedRowIndex);
        
         JOptionPane.showMessageDialog(this, "Employee deleted.");
         
@@ -478,8 +480,9 @@ public class ViewJPanel extends javax.swing.JPanel {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex =  tblEmployees.getSelectedRow();
+        
         DefaultTableModel model = (DefaultTableModel) tblEmployees.getModel();
-        Employee selectedEmployee = (Employee) model.getValueAt(selectedRowIndex, 0);
+        Employee selectedEmployee = history.getHistory().get(selectedRowIndex);
         
         selectedEmployee.setName(txtName.getText());
         selectedEmployee.setEmployeeID(Long.parseLong(txtEmployeeID.getText()));
@@ -519,11 +522,12 @@ public class ViewJPanel extends javax.swing.JPanel {
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblEmployees.getModel();
-
-//        Employee selectedEmployee = (Employee)model.getValueAt(selectedRowIndex, 0);
-
-        Employee selectedEmployee = history.getHistory().get(selectedRowIndex);
-                
+        Employee selectedEmployee = new Employee();
+        if(isSearch){
+            selectedEmployee = searchData.get(selectedRowIndex);
+        }else{
+            selectedEmployee = history.getHistory().get(selectedRowIndex);
+        }
         txtName.setText(String.valueOf(selectedEmployee.getName()));
         txtAge.setText(String.valueOf(selectedEmployee.getAge()));
         txtGender.setText(String.valueOf(selectedEmployee.getGender()));
@@ -543,6 +547,7 @@ public class ViewJPanel extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         String aa = txtSearch.getText();
+        isSearch = true;
         ArrayList<Employee> list = new ArrayList<>();
         for(Employee a : history.getHistory()){
             if( selectedValue.equals("Name") && String.valueOf(a.getName()).equals(aa) ){
@@ -560,6 +565,8 @@ public class ViewJPanel extends javax.swing.JPanel {
             }
         }
        if(!list.isEmpty()){
+           
+           searchData = list;
             showTable(list);
         }else{
             JOptionPane.showMessageDialog(this, "no such data.");
