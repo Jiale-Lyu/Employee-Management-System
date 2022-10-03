@@ -20,6 +20,32 @@ public class Employee {
     private String phone;
     private String email;
     private String photo;
+    
+    
+    public Employee() {
+    }
+
+    public Employee(String name, long employeeID, int age, String gender, int level) {
+        this.name = name;
+        this.employeeID = employeeID;
+        this.age = age;
+        this.gender = gender;
+        this.level = level;
+    }
+
+    public Employee(String name, long employeeID, int age, String gender, String startDate, int level, String teamInfo, String title, String phone, String email) {
+        this.name = name;
+        this.employeeID = employeeID;
+        this.age = age;
+        this.gender = gender;
+        this.startDate = startDate;
+        this.level = level;
+        this.teamInfo = teamInfo;
+        this.title = title;
+        this.phone = phone;
+        this.email = email;
+    }
+    
 
     public int getLevel() {
         return level;
