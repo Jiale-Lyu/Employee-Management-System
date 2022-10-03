@@ -4,6 +4,8 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import model.Employee;
 import model.EmployeeHistory;
 
 /**
@@ -15,11 +17,27 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    EmployeeHistory history;
+    static EmployeeHistory history;
+    
     
     public MainJFrame() {
         initComponents();
         history = new EmployeeHistory();
+        this.setLocationRelativeTo(null);
+        setTestData();
+//        this.setExtendedState(MainJFrame.MAXIMIZED_BOTH);
+    }
+    public void setTestData(){
+        Employee amy = new Employee("Amy",666888, 30, "Female", "Feb 2, 2002", 3, "Java Team", "PM", "92930192", "amy@gmail.com");
+        amy.setPhoto("C:\\Users\\Lv Jiale\\Documents\\aphoto\\f1.jpg");
+        Employee bob = new Employee("Bob",222222, 20, "Male", "May 8, 2021", 8, "C++ Team", "SDE", "92929292", "bob@gmail.com");
+        bob.setPhoto("C:\\Users\\Lv Jiale\\Documents\\aphoto\\m1.jpg");
+//        ArrayList<Employee> employeeList = new ArrayList<>();
+//        employeeList.add(amy);
+//        employeeList.add(bob);
+//        history.setHistory(employeeList);
+        history.addNewEmployee(amy);
+        history.addNewEmployee(bob);
     }
 
     /**
@@ -39,6 +57,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("HR management System");
 
         btnView.setText("View All Employees");
         btnView.addActionListener(new java.awt.event.ActionListener() {
@@ -77,29 +96,30 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(btnAdd)
                 .addGap(124, 124, 124)
                 .addComponent(btnView)
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(454, Short.MAX_VALUE))
         );
 
         splitPane.setLeftComponent(controlPanel);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/HRicon.jpg"))); // NOI18N
         jLabel1.setText("HR management System");
 
         javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
         workArea.setLayout(workAreaLayout);
         workAreaLayout.setHorizontalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(workAreaLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, workAreaLayout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap())
         );
         workAreaLayout.setVerticalGroup(
             workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(workAreaLayout.createSequentialGroup()
-                .addGap(241, 241, 241)
+                .addGap(166, 166, 166)
                 .addComponent(jLabel1)
-                .addContainerGap(295, Short.MAX_VALUE))
+                .addContainerGap(475, Short.MAX_VALUE))
         );
 
         splitPane.setRightComponent(workArea);
@@ -112,7 +132,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
 
         pack();
@@ -120,9 +140,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
-        
-        
-        
+        ViewJPanel viewJPanel = new ViewJPanel(history);
+        splitPane.setRightComponent(viewJPanel);      
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -131,6 +150,18 @@ public class MainJFrame extends javax.swing.JFrame {
         splitPane.setRightComponent(addPanel);        
     }//GEN-LAST:event_btnAddActionPerformed
 
+//        public static void setTestData(){
+//            Employee amy = new Employee("Amy",666888, 30, "Female", "Feb 2, 2002", 3, "Java Team", "PM", "92930192", "amy@gmail.com");
+//            amy.setPhoto("C:\\Users\\Lv Jiale\\Documents\\aphoto\\Amy.jpg");
+//            Employee bob = new Employee("Bob",222222, 20, "Male", 1);
+//            bob.setPhoto("C:\\Users\\Lv Jiale\\Documents\\aphoto\\Bob.png");
+//    //        ArrayList<Employee> employeeList = new ArrayList<>();
+//    //        employeeList.add(amy);
+//    //        employeeList.add(bob);
+//    //        history.setHistory(employeeList);
+//            history.addNewEmployee(amy);
+//            history.addNewEmployee(bob);
+//        }
     /**
      * @param args the command line arguments
      */
@@ -157,14 +188,18 @@ public class MainJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+//        setTestData();
         /* Create and display the form */
+//        setTestData();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainJFrame().setVisible(true);
             }
         });
     }
+//    public static void setTestData(){
+//       
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
