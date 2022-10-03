@@ -6,4 +6,4 @@ An Employee Management System, allow user to do CRUD to employees profile.
   • Create, Read, Update, Delete employee profile 
   • Search employee profile from employee directory based on different search option(Name, ID, and others fields) 
   • Display the photo when reading employee profile 
-It's programmed with Java Swing in Netbeans.
+It's written in Java Swing in Netbeans.
